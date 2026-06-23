@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * SiteFooter — full-screen umber footer. Thin rule up top, info row pinned to
+ * SiteFooter, full-screen umber footer. Thin rule up top, info row pinned to
  * the bottom, then a giant OJ PIPPIN wordmark fitted across the gutters.
  */
 
@@ -58,27 +58,22 @@ export default function SiteFooter() {
       const tl = gsap.timeline({
         scrollTrigger: { trigger: footerRef.current, start: "top 70%" },
       });
-      tl.fromTo(".of-rule", { scaleX: 0 }, { scaleX: 1, duration: 1, ease: "power3.inOut" })
-        .fromTo(
-          ".of-reveal",
-          { yPercent: 120 },
-          { yPercent: 0, duration: 0.9, stagger: 0.08, ease: "power3.out" },
-          "-=0.6"
-        )
-        .fromTo(
-          ".of-mark-inner",
-          { yPercent: 120 },
-          { yPercent: 0, duration: 1.1, ease: "power3.out" },
-          "-=0.7"
-        );
+      tl.fromTo(
+        ".of-reveal",
+        { yPercent: 120 },
+        { yPercent: 0, duration: 0.9, stagger: 0.08, ease: "power3.out" }
+      ).fromTo(
+        ".of-mark-inner",
+        { yPercent: 120 },
+        { yPercent: 0, duration: 1.1, ease: "power3.out" },
+        "-=0.6"
+      );
     }, footerRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <footer className="of" aria-label="Footer" ref={footerRef}>
-      <div className="of-rule" aria-hidden="true" />
-
+    <footer className="of" aria-label="Footer" ref={footerRef} data-tone="dark">
       <div className="of-info">
         <div className="of-col">
           <div className="of-mask">

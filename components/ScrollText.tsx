@@ -49,6 +49,6 @@ export default function ScrollText({
     };
   }, []);
 
-  // @ts-expect-error — ref type narrows per tag, fine for our usage
+  // @ts-expect-error, ref type narrows per tag, fine for our usage
   return <Tag ref={ref} className={className}>{children}</Tag>;
 }

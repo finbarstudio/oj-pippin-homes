@@ -66,6 +66,7 @@ export default function DesignShowcase() {
       ref={sectionRef}
       id="designs"
       data-cursor="View Design"
+      data-tone="dark"
       className="relative h-screen min-h-[620px] w-full overflow-hidden bg-umber cursor-none"
     >
       {/* Image stack */}
@@ -81,7 +82,7 @@ export default function DesignShowcase() {
           >
             <Image
               src={design.image}
-              alt={`The ${design.name} — ${design.facade}`}
+              alt={`The ${design.name}, ${design.facade}`}
               fill
               quality={86}
               className="object-cover object-center"
@@ -100,19 +101,19 @@ export default function DesignShowcase() {
         }}
       />
 
-      {/* Section label — top left */}
+      {/* Section label, top left */}
       <div className="ds-detail absolute top-0 left-0 px-5 md:px-10 pt-20 md:pt-24 z-10">
         <p className="eyebrow text-clay-soft">The Range</p>
       </div>
 
-      {/* Counter — top right */}
+      {/* Counter, top right */}
       <div className="ds-detail absolute top-0 right-0 px-5 md:px-10 pt-20 md:pt-24 z-10">
         <p className="eyebrow text-cream/60 tabular-nums">
           {String(active + 1).padStart(2, "0")} / {String(designs.length).padStart(2, "0")}
         </p>
       </div>
 
-      {/* Detail — bottom left */}
+      {/* Detail, bottom left */}
       <div className="absolute bottom-0 left-0 z-10 px-5 md:px-10 pb-10 md:pb-14 max-w-xl pointer-events-none">
         <h2
           className="ds-detail text-cream font-light leading-none"
@@ -128,14 +129,14 @@ export default function DesignShowcase() {
         </p>
       </div>
 
-      {/* Index — right side (desktop) */}
+      {/* Index, right side (desktop) */}
       <div className="hidden md:flex absolute bottom-14 right-10 z-10 flex-col items-end gap-3 pointer-events-auto">
         {designs.map((design, i) => (
           <button
             key={design.name}
             onClick={() => select(i)}
-            data-cursor="Switch"
-            className={`wordmark text-base tracking-[0.16em] transition-colors ${
+            data-cursor-skip
+            className={`wordmark text-base tracking-[0.16em] cursor-pointer transition-colors ${
               i === active ? "text-clay-soft" : "text-cream/45 hover:text-cream"
             }`}
           >
@@ -144,7 +145,7 @@ export default function DesignShowcase() {
         ))}
       </div>
 
-      {/* Thumbs — bottom (mobile) */}
+      {/* Thumbs, bottom (mobile) */}
       <div className="md:hidden absolute bottom-4 right-4 z-10 flex gap-2 pointer-events-auto">
         {designs.map((design, i) => (
           <button

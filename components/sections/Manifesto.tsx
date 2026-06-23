@@ -10,7 +10,7 @@ import { manifesto } from "@/lib/content";
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * The brand's flex — in place of award laurels, the heritage itself: thirty
+ * The brand's flex, in place of award laurels, the heritage itself: thirty
  * years, a thousand homes, fixed prices. Numbers that count up on view.
  */
 export default function Manifesto() {

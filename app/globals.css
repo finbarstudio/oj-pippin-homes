@@ -1,22 +1,22 @@
 @import "tailwindcss";
 
 /* ──────────────────────────────────────────────────────────────
-   OJ Pippin — design system
+   OJ Pippin, design system
    Warm heritage-luxury. Fraunces display + Hanken Grotesk.
    Bone paper, espresso ink, terracotta clay, olive, umber.
    ────────────────────────────────────────────────────────────── */
 
 :root {
-  --bone:      #f4eee3;   /* warm paper — base background */
-  --bone-2:    #ece1d1;   /* deeper paper — alternating sections */
-  --cream:     #fbf7ef;   /* lightest — text on dark */
-  --ink:       #211c17;   /* espresso near-black — default text */
+  --bone:      #f4eee3;   /* warm paper, base background */
+  --bone-2:    #ece1d1;   /* deeper paper, alternating sections */
+  --cream:     #fbf7ef;   /* lightest, text on dark */
+  --ink:       #211c17;   /* espresso near-black, default text */
   --ink-soft:  #534b40;   /* muted body text */
-  --clay:      #b35a33;   /* terracotta accent — used sparingly */
+  --clay:      #b35a33;   /* terracotta accent, used sparingly */
   --clay-soft: #c47a55;   /* lighter clay for on-dark accents */
-  --olive:     #6e6e62;   /* brand olive — secondary */
+  --olive:     #6e6e62;   /* brand olive, secondary */
   --sand:      #d8c8b1;   /* hairlines, rules, placeholders */
-  --umber:     #221c16;   /* dark sections — warm near-black */
+  --umber:     #221c16;   /* dark sections, warm near-black */
 }
 
 @theme inline {
@@ -52,7 +52,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Display headings — Fraunces, light, faintly tightened */
+/* Display headings, Fraunces, light, faintly tightened */
 h1, h2, h3, h4, h5, h6, .display {
   font-family: var(--font-fraunces), Georgia, serif;
   font-weight: 300;
@@ -66,7 +66,7 @@ h1, h2, h3, h4, h5, h6, .display {
   font-weight: 300;
 }
 
-/* Engraved label — Hanken, wide tracking, small caps feel */
+/* Engraved label, Hanken, wide tracking, small caps feel */
 .eyebrow {
   font-family: var(--font-hanken), sans-serif;
   text-transform: uppercase;
@@ -81,12 +81,23 @@ h1, h2, h3, h4, h5, h6, .display {
   text-transform: uppercase;
 }
 
-/* Wordmark — the spaced-cap OJ PIPPIN set in Fraunces */
+/* Wordmark, the spaced-cap OJ PIPPIN set in Fraunces */
 .wordmark {
   font-family: var(--font-fraunces), Georgia, serif;
   font-weight: 400;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+}
+
+/* Nav/logo colour adapts to what's behind it: cream over dark, brown over light */
+.nav-tinted {
+  color: var(--cream);
+  text-shadow: 0 1px 22px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.35);
+  transition: color 0.45s ease;
+}
+html.nav-light .nav-tinted {
+  color: var(--ink);
+  text-shadow: none;
 }
 
 ::selection {
@@ -111,6 +122,20 @@ section { position: relative; }
 @keyframes scrollDrop {
   0%   { transform: translateY(-100%); opacity: 1; }
   100% { transform: translateY(220%); opacity: 0; }
+}
+
+@keyframes vcspin {
+  to { transform: rotate(360deg); }
+}
+
+/* Nav entrance pop — CSS-driven so it never depends on the JS intro */
+@keyframes navpop {
+  0%   { opacity: 0; transform: translateY(-7px) scale(0.8); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.nav-enter {
+  animation: navpop 0.55s cubic-bezier(0.34, 1.6, 0.5, 1) both;
+  animation-delay: 2.55s;
 }
 
 @keyframes grainShift {
@@ -141,13 +166,6 @@ section { position: relative; }
   background: var(--umber);
   color: var(--cream);
   padding-top: calc(3.5rem + 6px);
-}
-
-.of-rule {
-  height: 1px;
-  background: rgba(251, 247, 239, 0.28);
-  margin: 0 clamp(20px, 3vw, 44px);
-  transform-origin: left;
 }
 
 .of-info {

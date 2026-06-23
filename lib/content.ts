@@ -1,7 +1,7 @@
-/* ──────────────────────────────────────────────────────────────
-   OJ Pippin Homes — site content
-   Sourced and re-voiced from ojpippin.com.au for a luxury demo.
-   ────────────────────────────────────────────────────────────── */
+/*
+   OJ Pippin Homes site content.
+   Sourced and re-voiced from ojpippin.com.au for a concept build.
+*/
 
 export const company = {
   name: "OJ Pippin Homes",
@@ -13,14 +13,15 @@ export const company = {
   phone: "07 3889 7775",
   phoneHref: "tel:+61738897775",
   email: "info@ojpippin.com.au",
-  region: "Brisbane & South East Queensland",
+  region: "Brisbane and South East Queensland",
+  regions: "Brisbane, Moreton Bay, Ipswich, Logan and the Redlands",
   address: {
     line1: "Building 6, 205 Leitchs Rd",
     line2: "Brendale, Queensland 4500",
   },
   hours: [
-    { days: "Monday – Friday", time: "10am – 4pm" },
-    { days: "Saturday – Sunday", time: "10am – 3pm" },
+    { days: "Monday to Friday", time: "10am to 4pm" },
+    { days: "Saturday and Sunday", time: "10am to 3pm" },
     { days: "Head office", time: "By appointment" },
   ],
   socials: [
@@ -31,15 +32,19 @@ export const company = {
   ],
 };
 
-/* The promise that replaces award-flaunting — heritage + clarity */
+/* The heritage hook the hero leads with */
+export const heritage = {
+  since: "Building since",
+  year: "1994",
+  line: "Thirty years of homes across Brisbane, Moreton Bay, Ipswich, Logan and the Redlands.",
+};
+
+/* Heritage over award-flaunting */
 export const manifesto = {
   eyebrow: "Since 1994",
-  lines: [
-    "Thirty years of building",
-    "across South East Queensland.",
-  ],
+  lines: ["Thirty years of building", "across South East Queensland."],
   body:
-    "We are a family-run Brisbane builder with a simple way of working: all-inclusive pricing, designs that bend to the way you live, and not a line of fine print to read twice. A thousand homes on, the standard has never moved.",
+    "We're a family-run Brisbane builder with a simple way of working. All-inclusive pricing, designs that bend to the way you live, and not a line of fine print to read twice. A thousand homes on, the standard hasn't moved.",
   stats: [
     { value: 30, suffix: "", label: "Years building" },
     { value: 1000, suffix: "+", label: "Homes handed over" },
@@ -67,7 +72,7 @@ export const designs: Design[] = [
     cars: 2,
     size: "450m²",
     image: "/homes/design-thames.jpg",
-    note: "A flagship family home — five bedrooms, dual living, and a kitchen made to gather around.",
+    note: "Our flagship plan. Five bedrooms, dual living, and a kitchen big enough to gather the whole family around.",
   },
   {
     name: "Willow",
@@ -87,7 +92,7 @@ export const designs: Design[] = [
     cars: 2,
     size: "390m²",
     image: "/homes/design-ava.jpg",
-    note: "Generous proportions and a clean Monaco front — our most-requested five-bedroom plan.",
+    note: "Generous proportions behind a clean Monaco front. Our most-requested five-bedroom plan.",
   },
   {
     name: "Shelby",
@@ -113,6 +118,51 @@ export const designIndex = [
   { name: "Shelby", beds: 4, baths: 2 },
 ];
 
+export interface FeaturedProject {
+  slug: string;
+  title: string;
+  location: string;
+  type: string;
+  images: string[]; // 3 views, first is the cover
+}
+
+/* The three full-bleed projects on the home page */
+export const featuredProjects: FeaturedProject[] = [
+  {
+    slug: "thames",
+    title: "Thames",
+    location: "Windsor",
+    type: "Custom family home",
+    images: [
+      "/homes/design-thames.jpg",
+      "/homes/interior-living.jpg",
+      "/homes/interior-kitchen.jpg",
+    ],
+  },
+  {
+    slug: "monaco",
+    title: "Monaco",
+    location: "Brendale",
+    type: "Turn-key build",
+    images: [
+      "/homes/facade-monaco.jpg",
+      "/homes/interior-bath.jpg",
+      "/homes/photo-real.jpg",
+    ],
+  },
+  {
+    slug: "willow",
+    title: "Willow",
+    location: "North Lakes",
+    type: "Scandi facade",
+    images: [
+      "/homes/design-willow.jpg",
+      "/homes/design-scandi.jpg",
+      "/homes/design-ava.jpg",
+    ],
+  },
+];
+
 export interface Service {
   num: string;
   title: string;
@@ -123,7 +173,7 @@ export const services: Service[] = [
   {
     num: "01",
     title: "Custom Homes",
-    desc: "A home drawn around your life from a blank page. Our design team works with you from first sketch to handover — one team, one contract.",
+    desc: "A home drawn around your life from a blank page. Our design team works with you from first sketch to handover, on one contract.",
   },
   {
     num: "02",
@@ -143,7 +193,7 @@ export const services: Service[] = [
   {
     num: "05",
     title: "Dual Living",
-    desc: "Room for family on both sides of a wall — separate entries, shared land, one well-resolved plan.",
+    desc: "Room for family on both sides of a wall. Separate entries, shared land, one plan that works for everyone.",
   },
   {
     num: "06",
@@ -211,7 +261,7 @@ export const process: Step[] = [
   {
     num: "02",
     title: "Design & develop",
-    desc: "Our designers shape a plan that works for the way you actually use a home — then refine it until it's right.",
+    desc: "Our designers shape a plan that works for the way you actually use a home, then refine it until it's right.",
   },
   {
     num: "03",
@@ -221,7 +271,7 @@ export const process: Step[] = [
   {
     num: "04",
     title: "Construction",
-    desc: "Your project manager and our trusted trades build it — and you always know what's happening and why.",
+    desc: "Your project manager and our trusted trades build it, and you always know what's happening and why.",
   },
   {
     num: "05",
@@ -250,7 +300,7 @@ export const pillars: Pillar[] = [
   },
   {
     title: "Built for QLD blocks",
-    desc: "Sloping sites, narrow lots and the Queensland sun — homes that suit where they're actually built.",
+    desc: "Sloping sites, narrow lots and the Queensland sun. We build homes that suit where they actually sit.",
   },
   {
     title: "No fine print",
@@ -289,5 +339,5 @@ export const cta = {
   eyebrow: "Start the conversation",
   heading: ["Let's talk about", "the home you're picturing."],
   body:
-    "Book a free, no-pressure consultation. Bring a block, a budget, or just a folder of ideas — we'll tell you honestly what's possible.",
+    "Book a free, no-pressure consultation. Bring a block, a budget, or just a folder of ideas, and we'll tell you honestly what's possible.",
 };

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import NavTone from "@/components/NavTone";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -21,7 +22,7 @@ const hanken = Hanken_Grotesk({
 export const metadata: Metadata = {
   title: "OJ Pippin Homes | Brisbane Custom & Turn-Key Home Builder Since 1994",
   description:
-    "For thirty years OJ Pippin Homes has built across Brisbane and South East Queensland — one thousand homes, one standard. All-inclusive pricing, flexible designs, no fine print.",
+    "For thirty years OJ Pippin Homes has built across Brisbane and South East Queensland, one thousand homes, one standard. All-inclusive pricing, flexible designs, no fine print.",
 };
 
 export default function RootLayout({
@@ -30,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fraunces.variable} ${hanken.variable}`}>
       <body suppressHydrationWarning>
+        <NavTone />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

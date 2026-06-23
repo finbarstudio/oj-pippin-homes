@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Counts from 0 → `to` when it scrolls into view, with thousands grouping.
- * Used for the heritage figures (30 years, 1,000 homes) — the brand's flex in
+ * Used for the heritage figures (30 years, 1,000 homes), the brand's flex in
  * place of award laurels.
  */
 export default function CountUp({

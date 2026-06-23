@@ -1,50 +1,34 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import PipMark from "@/components/PipMark";
 
 const LEFT = [
+  { label: "What We Do", href: "/what-we-do" },
   { label: "Home Designs", href: "/designs" },
-  { label: "What We Do", href: "/#services" },
-  { label: "Inclusions", href: "/#inclusions" },
 ];
 const RIGHT = [
   { label: "About", href: "/about" },
-  { label: "Reviews", href: "/#reviews" },
   { label: "Contact", href: "/#contact" },
 ];
 const ALL = [...LEFT, ...RIGHT];
 
+/**
+ * Transparent nav, no background. Text sits on a mix-blend-difference layer so
+ * it stays legible over both the full-bleed imagery and the bone sections.
+ * On the home page the wordmark is supplied by the travelling logo (HeroIntro);
+ * elsewhere the nav renders its own centred wordmark.
+ *
+ *  - immediate:  show the links straight away (off = HeroIntro staggers them in)
+ *  - showLogo:   render the centred wordmark (off on home, the logo travels in)
+ */
 export default function Nav({
   immediate = false,
+  showLogo = false,
 }: {
   immediate?: boolean;
+  showLogo?: boolean;
 } = {}) {
-  const [revealed, setRevealed] = useState(immediate);
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (immediate) return;
-    let done = false;
-    const reveal = () => {
-      if (done) return;
-      done = true;
-      setRevealed(true);
-      cleanup();
-    };
-    const onScroll = () => {
-      if (window.scrollY > 40) reveal();
-    };
-    window.addEventListener("ojp:intro-done", reveal);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    const fallback = window.setTimeout(reveal, 6000);
-    function cleanup() {
-      window.removeEventListener("ojp:intro-done", reveal);
-      window.removeEventListener("scroll", onScroll);
-      window.clearTimeout(fallback);
-    }
-    return cleanup;
-  }, [immediate]);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -54,75 +38,75 @@ export default function Nav({
   }, [menuOpen]);
 
   const linkClass =
-    "eyebrow text-ink-soft hover:text-clay transition-colors whitespace-nowrap";
+    "text-[10px] tracking-[0.24em] uppercase whitespace-nowrap hover:opacity-50 transition-opacity duration-300";
+  const enterCls = immediate ? "" : "nav-enter";
+  const enterStyle = (idx: number) =>
+    immediate ? undefined : ({ animationDelay: `${2.55 + idx * 0.07}s` } as const);
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 bg-bone/90 backdrop-blur-md transition-transform duration-700 ease-out ${
-          revealed ? "translate-y-0" : "-translate-y-full"
-        }`}
-      >
-        <div className="flex md:grid md:grid-cols-[1fr_auto_1fr] items-center h-14 px-5 md:px-10 border-b border-ink/8">
-          {/* Left links */}
+      <header className="fixed top-0 inset-x-0 z-50 nav-tinted">
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center h-16 md:h-20 px-6 md:px-10">
+          {/* Left */}
           <ul className="hidden md:flex items-center gap-8">
-            {LEFT.map((l) => (
+            {LEFT.map((l, i) => (
               <li key={l.label}>
-                <a href={l.href} className={linkClass}>
+                <a href={l.href} className={`${linkClass} ${enterCls}`} style={enterStyle(i)}>
                   {l.label}
                 </a>
               </li>
             ))}
           </ul>
 
-          {/* Centre — emblem + wordmark */}
-          <a
-            href="/"
-            className="flex items-center gap-2.5 text-ink hover:text-clay transition-colors md:justify-self-center"
-          >
-            <PipMark className="h-5 w-auto" strokeWidth={1.6} />
-            <span className="wordmark text-[15px] leading-none whitespace-nowrap">
+          {/* Centre wordmark (off on home) */}
+          {showLogo ? (
+            <a
+              href="/"
+              className="col-start-2 justify-self-center wordmark text-[15px] leading-none"
+            >
               OJ&nbsp;PIPPIN
-            </span>
-          </a>
+            </a>
+          ) : (
+            <span className="col-start-2 justify-self-center" aria-hidden />
+          )}
 
-          {/* Right links + hamburger */}
-          <div className="flex items-center justify-end ml-auto md:ml-0">
+          {/* Right + hamburger */}
+          <div className="col-start-3 flex items-center justify-end gap-8">
             <ul className="hidden md:flex items-center gap-8">
-              {RIGHT.map((l) => (
+              {RIGHT.map((l, i) => (
                 <li key={l.label}>
-                  <a href={l.href} className={linkClass}>
+                  <a href={l.href} className={`${linkClass} ${enterCls}`} style={enterStyle(LEFT.length + i)}>
                     {l.label}
                   </a>
                 </li>
               ))}
             </ul>
-
             <button
               type="button"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen((o) => !o)}
-              className="md:hidden w-8 h-8 flex flex-col items-end justify-center gap-[5px] relative z-[60]"
+              className={`md:hidden w-8 h-8 flex flex-col items-end justify-center gap-[5px] ${enterCls}`}
+              style={enterStyle(ALL.length)}
             >
               <span
-                className={`block h-px bg-ink transition-all duration-300 ${
+                className={`block h-px bg-current transition-all duration-300 ${
                   menuOpen ? "w-6 rotate-45 translate-y-[3px]" : "w-6"
                 }`}
               />
               <span
-                className={`block h-px bg-ink transition-all duration-300 ${
+                className={`block h-px bg-current transition-all duration-300 ${
                   menuOpen ? "w-6 -rotate-45 -translate-y-[3px]" : "w-4"
                 }`}
               />
             </button>
           </div>
         </div>
-      </nav>
+      </header>
 
-      {/* Mobile menu */}
+      {/* Mobile menu, solid bone, no blend */}
       <div
-        className={`md:hidden fixed inset-0 z-40 bg-bone flex flex-col px-6 pt-24 gap-1 transition-opacity duration-300 ${
+        className={`md:hidden fixed inset-0 z-40 bg-bone flex flex-col px-8 pt-28 gap-1 transition-opacity duration-300 ${
           menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
@@ -131,18 +115,11 @@ export default function Nav({
             key={l.label}
             href={l.href}
             onClick={() => setMenuOpen(false)}
-            className="display text-ink text-3xl py-3 border-b border-ink/10"
+            className="display text-ink text-4xl py-3"
           >
             {l.label}
           </a>
         ))}
-        <a
-          href="/#contact"
-          onClick={() => setMenuOpen(false)}
-          className="eyebrow text-clay mt-6"
-        >
-          Free Consultation →
-        </a>
       </div>
     </>
   );

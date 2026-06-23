@@ -7,203 +7,117 @@ import { cta, company } from "@/lib/content";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/**
- * Contact — the warm closing note. A two-column moment on bone paper: the
- * invitation and contact details on the left, a quiet enquiry form on the
- * right. Borderless inputs, clay accents on focus, no hard sell.
- */
 export default function Contact() {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(".contact-line", {
-        y: 32,
+      gsap.from(".c-line", {
+        y: 36,
         opacity: 0,
-        duration: 0.85,
+        duration: 0.9,
         ease: "power3.out",
-        stagger: 0.1,
-        scrollTrigger: { trigger: ref.current, start: "top 68%" },
+        stagger: 0.08,
+        scrollTrigger: { trigger: ref.current, start: "top 65%" },
       });
     }, ref);
     return () => ctx.revert();
   }, []);
 
+  const field =
+    "w-full bg-transparent border-b border-ink/20 py-3 text-ink placeholder:text-ink/30 focus:outline-none focus:border-clay transition-colors";
+
   return (
     <section
-      ref={ref}
       id="contact"
-      className="bg-bone px-6 md:px-16 py-24 md:py-32"
+      ref={ref}
+      className="min-h-screen flex items-center bg-bone px-8 md:px-16 lg:px-24 py-28 md:py-32"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-16">
-        {/* ── Left: invitation + details ────────────────────────────── */}
-        <div className="lg:col-span-6 xl:col-span-5">
-          <p className="contact-line eyebrow text-clay mb-5 md:mb-6">
-            {cta.eyebrow}
-          </p>
-
+      <div className="w-full grid grid-cols-1 md:grid-cols-7 gap-y-16 md:gap-8">
+        {/* Left, heading top, details bottom (Swiss split) */}
+        <div className="md:col-span-3 flex flex-col justify-between md:min-h-[62vh]">
           <h2
-            className="contact-line text-ink leading-[1.02] max-w-xl"
-            style={{ fontSize: "clamp(2.4rem, 5vw, 4.5rem)" }}
+            className="c-line text-ink font-light leading-[1.0]"
+            style={{ fontSize: "clamp(2.6rem, 5vw, 4.6rem)" }}
           >
             {cta.heading[0]}
             <br />
-            the home <span className="display-italic">you&rsquo;re picturing.</span>
+            the home <span className="display-italic">you&rsquo;re</span>
+            <br />
+            picturing.
           </h2>
 
-          <p className="contact-line text-ink-soft text-lg leading-relaxed mt-7 md:mt-9 max-w-md">
-            {cta.body}
-          </p>
-
-          {/* Contact details */}
-          <div className="contact-line mt-12 md:mt-16 max-w-md">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8">
-              <div>
-                <p className="eyebrow text-olive mb-2">Phone</p>
-                <a
-                  href={company.phoneHref}
-                  className="text-ink text-lg tabular-nums transition-colors hover:text-clay"
-                >
-                  {company.phone}
-                </a>
-              </div>
-
-              <div>
-                <p className="eyebrow text-olive mb-2">Email</p>
-                <a
-                  href={`mailto:${company.email}`}
-                  className="text-ink text-lg transition-colors hover:text-clay"
-                >
-                  {company.email}
-                </a>
-              </div>
-
-              <div className="sm:col-span-2">
-                <p className="eyebrow text-olive mb-2">Studio</p>
-                <p className="text-ink text-lg leading-relaxed">
-                  {company.address.line1}
-                  <br />
-                  {company.address.line2}
-                </p>
-              </div>
+          <div className="c-line mt-14 md:mt-0 flex flex-col gap-6 text-ink-soft">
+            <div className="flex flex-col gap-1">
+              <a href={company.phoneHref} className="text-ink text-lg hover:text-clay transition-colors tabular-nums">
+                {company.phone}
+              </a>
+              <a href={`mailto:${company.email}`} className="text-ink text-lg hover:text-clay transition-colors">
+                {company.email}
+              </a>
             </div>
-
-            {/* Hours */}
-            <div className="mt-10 pt-10 border-t border-ink/12">
-              <p className="eyebrow text-olive mb-5">Open hours</p>
-              <dl className="space-y-3">
-                {company.hours.map((h) => (
-                  <div
-                    key={h.days}
-                    className="flex items-baseline justify-between gap-6"
-                  >
-                    <dt className="text-ink-soft">{h.days}</dt>
-                    <dd className="text-ink tabular-nums">{h.time}</dd>
-                  </div>
-                ))}
-              </dl>
+            <div className="text-[15px] leading-relaxed">
+              {company.address.line1}
+              <br />
+              {company.address.line2}
+            </div>
+            <div className="text-[15px] leading-relaxed">
+              {company.hours.map((h) => (
+                <div key={h.days}>
+                  {h.days}, {h.time}
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* ── Right: enquiry form ───────────────────────────────────── */}
-        <div className="lg:col-span-6 xl:col-start-8 xl:col-span-5">
-          <form
-            className="contact-line"
-            onSubmit={(e) => e.preventDefault()}
-            aria-label="Enquiry form"
+        {/* Right, enquiry form (col 4 left intentionally empty) */}
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className="c-line md:col-span-3 md:col-start-5 self-center flex flex-col gap-7"
+        >
+          <p className="text-ink-soft text-lg leading-relaxed mb-2">{cta.body}</p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
+            <div>
+              <label htmlFor="fn" className="block text-[13px] text-ink-soft mb-2">
+                First name
+              </label>
+              <input id="fn" type="text" className={field} placeholder="Your first name" />
+            </div>
+            <div>
+              <label htmlFor="ln" className="block text-[13px] text-ink-soft mb-2">
+                Last name
+              </label>
+              <input id="ln" type="text" className={field} placeholder="Your last name" />
+            </div>
+          </div>
+          <div>
+            <label htmlFor="em" className="block text-[13px] text-ink-soft mb-2">
+              Email
+            </label>
+            <input id="em" type="email" className={field} placeholder="you@email.com" />
+          </div>
+          <div>
+            <label htmlFor="ph" className="block text-[13px] text-ink-soft mb-2">
+              Phone
+            </label>
+            <input id="ph" type="tel" className={field} placeholder="0400 000 000" />
+          </div>
+          <div>
+            <label htmlFor="msg" className="block text-[13px] text-ink-soft mb-2">
+              Tell us about your project
+            </label>
+            <textarea id="msg" rows={3} className={`${field} resize-none`} placeholder="Block, budget, type of build…" />
+          </div>
+
+          <button
+            type="submit"
+            className="self-start mt-2 px-10 py-4 bg-ink text-cream text-[11px] tracking-[0.22em] uppercase hover:bg-clay transition-colors"
           >
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
-              <div className="flex flex-col">
-                <label
-                  htmlFor="contact-first-name"
-                  className="eyebrow text-ink-soft mb-1"
-                >
-                  First name
-                </label>
-                <input
-                  id="contact-first-name"
-                  name="firstName"
-                  type="text"
-                  autoComplete="given-name"
-                  className="border-b border-ink/20 bg-transparent py-3 text-ink text-lg outline-none transition-colors focus:border-clay placeholder:text-ink/30"
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <label
-                  htmlFor="contact-last-name"
-                  className="eyebrow text-ink-soft mb-1"
-                >
-                  Last name
-                </label>
-                <input
-                  id="contact-last-name"
-                  name="lastName"
-                  type="text"
-                  autoComplete="family-name"
-                  className="border-b border-ink/20 bg-transparent py-3 text-ink text-lg outline-none transition-colors focus:border-clay placeholder:text-ink/30"
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <label
-                  htmlFor="contact-email"
-                  className="eyebrow text-ink-soft mb-1"
-                >
-                  Email
-                </label>
-                <input
-                  id="contact-email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  className="border-b border-ink/20 bg-transparent py-3 text-ink text-lg outline-none transition-colors focus:border-clay placeholder:text-ink/30"
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <label
-                  htmlFor="contact-phone"
-                  className="eyebrow text-ink-soft mb-1"
-                >
-                  Phone
-                </label>
-                <input
-                  id="contact-phone"
-                  name="phone"
-                  type="tel"
-                  autoComplete="tel"
-                  className="border-b border-ink/20 bg-transparent py-3 text-ink text-lg tabular-nums outline-none transition-colors focus:border-clay placeholder:text-ink/30"
-                />
-              </div>
-
-              <div className="flex flex-col sm:col-span-2">
-                <label
-                  htmlFor="contact-project"
-                  className="eyebrow text-ink-soft mb-1"
-                >
-                  Tell us about your project
-                </label>
-                <textarea
-                  id="contact-project"
-                  name="project"
-                  rows={4}
-                  className="border-b border-ink/20 bg-transparent py-3 text-ink text-lg leading-relaxed outline-none transition-colors focus:border-clay resize-none placeholder:text-ink/30"
-                />
-              </div>
-            </div>
-
-            <div className="mt-12">
-              <button
-                type="submit"
-                className="px-10 py-4 bg-ink text-cream text-sm uppercase tracking-widest transition-colors hover:bg-clay"
-              >
-                Book a Consultation
-              </button>
-            </div>
-          </form>
-        </div>
+            Book a Consultation
+          </button>
+        </form>
       </div>
     </section>
   );
