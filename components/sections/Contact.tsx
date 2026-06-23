@@ -31,7 +31,7 @@ export default function Contact() {
     <section
       id="contact"
       ref={ref}
-      className="min-h-screen flex items-center bg-bone px-8 md:px-16 lg:px-24 py-28 md:py-32"
+      className="min-h-screen flex items-center bg-bone px-6 md:px-16 lg:px-24 py-24 md:py-32"
     >
       <div className="w-full grid grid-cols-1 md:grid-cols-7 gap-y-16 md:gap-8">
         {/* Left, heading top, details bottom (Swiss split) */}

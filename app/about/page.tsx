@@ -4,7 +4,7 @@ import SiteFooter from "@/components/sections/SiteFooter";
 import ScrollText from "@/components/ScrollText";
 import CountUp from "@/components/CountUp";
 import MaskReveal from "@/components/MaskReveal";
-import { company, manifesto } from "@/lib/content";
+import { manifesto } from "@/lib/content";
 
 export const metadata = {
   title: "Our Story, Family-Run Since 1994 | OJ Pippin Homes",
@@ -17,53 +17,50 @@ export default function AboutPage() {
     <main className="bg-bone text-ink">
       <Nav immediate showLogo />
 
-      {/* Hero, centred heritage statement */}
-      <section className="min-h-screen flex flex-col justify-center items-center text-center px-8 md:px-16 lg:px-24 py-24 md:py-32">
-        <h1
-          className="text-ink font-light leading-[0.98] max-w-5xl"
-          style={{ fontSize: "clamp(2.6rem, 7vw, 6.5rem)" }}
-        >
-          Over <CountUp to={company.years} /> years of{" "}
-          <span className="display-italic">Brisbane</span> homes.
-        </h1>
-        <p className="mt-10 text-ink-soft text-lg max-w-xl leading-relaxed">
-          One family, one standard, since {company.established}. This is how it
-          started, and why it hasn&rsquo;t changed.
-        </p>
-      </section>
-
-      {/* Where it started, sticky heading + scrolling body */}
-      <section className="min-h-screen flex flex-col justify-center px-8 md:px-16 lg:px-24 py-24 md:py-32">
-        <div className="w-full grid grid-cols-1 md:grid-cols-7 gap-y-12 md:gap-8">
-          <h2
-            className="md:col-span-2 md:sticky md:top-28 md:self-start text-ink font-light leading-[1.0]"
-            style={{ fontSize: "clamp(2.6rem, 6vw, 5.5rem)" }}
+      {/* Hero — one large statement, lots of air */}
+      <section className="min-h-screen flex items-end px-6 md:px-16 lg:px-24 pb-20 md:pb-28 pt-32">
+        <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-y-10 md:gap-8 items-end">
+          <p className="md:col-span-1 eyebrow text-clay self-start md:pt-3">Our Story</p>
+          <h1
+            className="md:col-span-4 text-ink font-light leading-[0.98]"
+            style={{ fontSize: "clamp(2.8rem, 7.5vw, 7rem)" }}
           >
-            Where it <span className="display-italic">started</span>
-          </h2>
-
-          <div className="md:col-span-4 md:col-start-4 space-y-10 text-lg md:text-xl text-ink-soft leading-relaxed">
-            <ScrollText>
-              OJ Pippin Homes began in 1994 in Brisbane&rsquo;s north, with one
-              builder, one ute and a simple promise: quote a fair price, then
-              hold it. No surprises at the end, no fine print to read twice.
-            </ScrollText>
-            <ScrollText>
-              Word travelled the way it does in a good suburb, one family told
-              another. The work grew because the homes stood up and the
-              handshakes held. Thirty years later, we still run the business by
-              the same rule.
-            </ScrollText>
-          </div>
+            Thirty years on, the same family still{" "}
+            <span className="display-italic">answers the phone.</span>
+          </h1>
         </div>
       </section>
 
-      {/* Full-width image */}
-      <section className="px-8 md:px-16 lg:px-24 py-12 md:py-20">
+      {/* Where it started — sticky label, one continuous colour-fill block */}
+      <section className="min-h-[80vh] flex flex-col justify-center px-6 md:px-16 lg:px-24 py-24 md:py-32">
+        <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-y-8 md:gap-8">
+          <h2 className="md:col-span-1 md:sticky md:top-28 md:self-start text-olive font-light text-2xl md:text-3xl">
+            1994
+          </h2>
+          <ScrollText
+            as="div"
+            className="md:col-span-3 md:col-start-2 space-y-8 text-2xl md:text-4xl font-light leading-[1.32] tracking-[-0.01em]"
+          >
+            <p>
+              It began with one builder, one ute and a single promise: quote a
+              fair price, then hold it. No surprises at the end, no fine print to
+              read twice.
+            </p>
+            <p>
+              Word travelled the way it does in a good suburb. One family told
+              another, and the work grew because the homes stood up and the
+              handshakes held.
+            </p>
+          </ScrollText>
+        </div>
+      </section>
+
+      {/* Full-bleed image — mask reveal */}
+      <section className="px-6 md:px-16 lg:px-24 py-10 md:py-16">
         <MaskReveal className="relative aspect-[16/9] w-full bg-ink/5">
           <Image
             src="/homes/facade-monaco.jpg"
-            alt="The Monaco facade, an OJ Pippin home in Brisbane"
+            alt="An OJ Pippin home in Brisbane"
             fill
             quality={88}
             className="object-cover"
@@ -72,45 +69,37 @@ export default function AboutPage() {
         </MaskReveal>
       </section>
 
-      {/* The way we build, body + side image */}
-      <section className="min-h-screen flex flex-col justify-center bg-bone-2 px-8 md:px-16 lg:px-24 py-24 md:py-32">
-        <div className="w-full grid grid-cols-1 md:grid-cols-7 gap-y-12 md:gap-8 items-stretch">
-          <div className="md:col-span-4 flex flex-col justify-between gap-12">
-            <h2
-              className="text-ink font-light leading-[1.0]"
-              style={{ fontSize: "clamp(2.6rem, 6vw, 5.5rem)" }}
-            >
-              The way we <span className="display-italic">build</span>
+      {/* The way we build — body left, tall image right */}
+      <section className="min-h-[80vh] flex flex-col justify-center px-6 md:px-16 lg:px-24 py-24 md:py-32">
+        <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-y-12 md:gap-8 items-center">
+          <div className="md:col-span-3">
+            <h2 className="text-olive font-light text-2xl md:text-3xl mb-8">
+              The way we build
             </h2>
-
-            <div className="space-y-10 text-lg md:text-xl text-ink-soft leading-relaxed md:max-w-xl">
-              <ScrollText>
-                Everything you&rsquo;d expect to pay extra for is already in the
-                price, stone benchtops, ducted air, real flooring, a proper
-                kitchen. We call it turn-key because the day we hand over the
-                keys, the home is genuinely finished.
-              </ScrollText>
-              <ScrollText>
-                We use the same trusted trades from one job to the next, which
-                is why the finish looks the same in the thousandth home as it
-                did in the first. And our designs flex: move a wall, add a
-                bedroom, plan for two generations under one roof.
-              </ScrollText>
-            </div>
-          </div>
-
-          <div className="md:col-span-2 md:col-start-6 md:self-end">
-            <MaskReveal
-              direction="right"
-              className="relative aspect-[3/4] w-full bg-ink/5"
+            <ScrollText
+              as="div"
+              className="space-y-8 text-2xl md:text-4xl font-light leading-[1.32] tracking-[-0.01em] max-w-2xl"
             >
+              <p>
+                Everything you would expect to pay extra for is already in the
+                price. Stone benchtops, ducted air, real flooring, a proper
+                kitchen.
+              </p>
+              <p>
+                The same trusted trades come back job after job, which is why the
+                thousandth home is finished to the standard of the first.
+              </p>
+            </ScrollText>
+          </div>
+          <div className="md:col-span-2 md:col-start-4">
+            <MaskReveal className="relative aspect-[3/4] w-full bg-ink/5">
               <Image
                 src="/homes/interior-living.jpg"
-                alt="Interior of an OJ Pippin home"
+                alt="Inside an OJ Pippin home"
                 fill
                 quality={88}
                 className="object-cover"
-                sizes="(min-width:768px) 28vw, 100vw"
+                sizes="(min-width:768px) 38vw, 100vw"
               />
             </MaskReveal>
           </div>
@@ -118,76 +107,40 @@ export default function AboutPage() {
       </section>
 
       {/* Pull quote */}
-      <section className="min-h-screen flex flex-col justify-center px-8 md:px-16 lg:px-24 py-24 md:py-32">
-        <div className="w-full grid grid-cols-1 md:grid-cols-7 gap-8">
-          <blockquote
-            className="md:col-span-6 display-italic text-ink leading-[1.06]"
-            style={{ fontSize: "clamp(2rem, 5.4vw, 4.6rem)" }}
-          >
-            The name on the contract still answers the phone. After thirty
-            years, that&rsquo;s the part we&rsquo;re{" "}
-            <span className="text-clay">proudest</span> of.
-          </blockquote>
-        </div>
+      <section className="px-6 md:px-16 lg:px-24 py-24 md:py-32">
+        <blockquote
+          className="display-italic text-ink leading-[1.05] max-w-5xl"
+          style={{ fontSize: "clamp(2.2rem, 6vw, 5.2rem)" }}
+        >
+          &ldquo;We have never wanted to be the biggest builder in Brisbane. Just
+          the one a family would recommend to another.&rdquo;
+        </blockquote>
       </section>
 
-      {/* A thousand homes on, scattered Swiss stats */}
-      <section className="min-h-screen flex flex-col justify-center bg-bone-2 px-8 md:px-16 lg:px-24 py-24 md:py-32">
-        <div className="w-full grid grid-cols-1 md:grid-cols-7 gap-y-16 md:gap-x-8 md:gap-y-24">
-          <h2
-            className="md:col-span-3 md:self-start text-ink font-light leading-[1.0]"
-            style={{ fontSize: "clamp(2.6rem, 6vw, 5.5rem)" }}
-          >
-            A thousand <span className="display-italic">homes</span> on
+      {/* Heritage figures — sparse grid */}
+      <section className="min-h-[70vh] flex flex-col justify-center bg-bone-2 px-6 md:px-16 lg:px-24 py-24 md:py-32">
+        <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-y-14 md:gap-8 items-end">
+          <h2 className="md:col-span-2 text-ink font-light leading-[1.0] mb-4 md:mb-0" style={{ fontSize: "clamp(2.4rem, 5vw, 4.4rem)" }}>
+            A thousand homes
+            <br />
+            <span className="display-italic">on.</span>
           </h2>
-
-          {/* Stat 1, top right */}
-          <div className="md:col-span-2 md:col-start-6 md:self-start flex flex-col gap-3">
+          {manifesto.stats.map((s, i) => (
             <div
-              className="text-ink font-light leading-none tabular-nums"
-              style={{ fontSize: "clamp(3rem, 7vw, 6rem)" }}
+              key={s.label}
+              className={`flex flex-col gap-3 ${
+                i === 0 ? "md:col-start-3 md:self-start" : i === 1 ? "md:col-start-4 md:self-end" : "md:col-start-5 md:self-start"
+              }`}
             >
-              <CountUp
-                to={manifesto.stats[0].value}
-                suffix={manifesto.stats[0].suffix}
-              />
+              <div
+                className="text-ink font-light leading-none tabular-nums"
+                style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)" }}
+              >
+                <CountUp to={s.value} suffix={s.suffix} />
+              </div>
+              <div className="text-ink-soft text-sm md:text-base">{s.label}</div>
             </div>
-            <div className="text-ink-soft text-sm md:text-base">
-              {manifesto.stats[0].label}
-            </div>
-          </div>
-
-          {/* Stat 2, lower, larger, starts column 2 */}
-          <div className="md:col-span-3 md:col-start-2 md:self-end flex flex-col gap-3">
-            <div
-              className="text-ink font-light leading-none tabular-nums"
-              style={{ fontSize: "clamp(3.4rem, 9vw, 8rem)" }}
-            >
-              <CountUp
-                to={manifesto.stats[1].value}
-                suffix={manifesto.stats[1].suffix}
-              />
-            </div>
-            <div className="text-ink-soft text-sm md:text-base">
-              {manifesto.stats[1].label}
-            </div>
-          </div>
-
-          {/* Stat 3, bottom right, lifted */}
-          <div className="md:col-span-2 md:col-start-6 md:self-end flex flex-col gap-3">
-            <div
-              className="text-ink font-light leading-none tabular-nums"
-              style={{ fontSize: "clamp(3rem, 7vw, 6rem)" }}
-            >
-              <CountUp
-                to={manifesto.stats[2].value}
-                suffix={manifesto.stats[2].suffix}
-              />
-            </div>
-            <div className="text-ink-soft text-sm md:text-base">
-              {manifesto.stats[2].label}
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
