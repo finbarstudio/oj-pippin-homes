@@ -1,17 +1,34 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import MaskReveal from "@/components/MaskReveal";
 import { inclusions } from "@/lib/content";
 
 gsap.registerPlugin(ScrollTrigger);
 
+function Check() {
+  return (
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="text-clay/70 shrink-0"
+      aria-hidden
+    >
+      <path d="M5 13 L10 18 L19 6" />
+    </svg>
+  );
+}
+
 /**
- * The turn-key spec sheet. A tall interior frame holds the promise; the four
- * inclusion groups read like a printed spec card. Everything is in the price.
+ * The turn-key spec sheet. Centred promise, then the four inclusion groups as a
+ * 2×2 of spec tables — each line ticked, each row revealed individually.
  */
 export default function Inclusions() {
   const ref = useRef<HTMLElement>(null);
@@ -23,16 +40,16 @@ export default function Inclusions() {
         opacity: 0,
         duration: 0.9,
         ease: "power3.out",
-        stagger: 0.1,
-        scrollTrigger: { trigger: ref.current, start: "top 70%" },
+        stagger: 0.12,
+        scrollTrigger: { trigger: ref.current, start: "top 72%" },
       });
-      gsap.from(".inc-item", {
-        y: 26,
+      gsap.from(".inc-row", {
         opacity: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        stagger: 0.07,
-        scrollTrigger: { trigger: ".inc-groups", start: "top 78%" },
+        y: 14,
+        duration: 0.5,
+        ease: "power2.out",
+        stagger: 0.04,
+        scrollTrigger: { trigger: ".inc-groups", start: "top 82%" },
       });
     }, ref);
     return () => ctx.revert();
@@ -42,58 +59,49 @@ export default function Inclusions() {
     <section
       ref={ref}
       id="inclusions"
-      className="bg-bone-2 px-6 md:px-16 lg:px-24 py-24 md:py-32"
+      className="bg-bone px-6 md:px-16 lg:px-24 py-24 md:py-32"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-14 lg:gap-x-16 xl:gap-x-24">
-        {/* Left, the promise + feature image */}
-        <div className="lg:col-span-5">
-          <p className="inc-lead eyebrow text-clay mb-5">Turn-Key Inclusions</p>
-          <h2
-            className="inc-lead text-ink font-light leading-[1.02] max-w-md"
-            style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)" }}
-          >
-            All-inclusive.
-            <br />
-            <span className="display-italic">No fine print.</span>
-          </h2>
-          <p className="inc-lead text-ink-soft text-base md:text-lg leading-relaxed mt-7 max-w-sm">
-            Every fixture and finish below is in the price from the day you sign.
-            No upgrade lists, no provisional sums, the home you walk through is
-            the home you move into.
-          </p>
+      <div className="max-w-3xl mx-auto text-center">
+        <h2
+          className="inc-lead text-ink font-light leading-[1.04]"
+          style={{ fontSize: "clamp(2.6rem, 6vw, 5rem)" }}
+        >
+          All-inclusive.
+          <br />
+          <span className="display-italic">No fine print.</span>
+        </h2>
+        <p className="inc-lead text-ink-soft text-lg md:text-xl leading-relaxed mt-8 mx-auto max-w-xl">
+          Every fixture and finish below is in the price from the day you sign.
+          No upgrade lists, no provisional sums, the home you walk through is the
+          home you move into.
+        </p>
+      </div>
 
-          <MaskReveal className="relative mt-12 md:mt-16 aspect-[4/5] w-full bg-ink/5">
-            <Image
-              src="/homes/interior-kitchen.jpg"
-              alt="A finished OJ Pippin kitchen, stone benchtops and full-height cabinetry"
-              fill
-              quality={88}
-              className="object-cover object-center"
-              sizes="(max-width: 1024px) 100vw, 40vw"
-            />
-          </MaskReveal>
-        </div>
-
-        {/* Right, the four inclusion groups */}
-        <div className="inc-groups lg:col-span-7 lg:col-start-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 xl:gap-x-20 gap-y-12 md:gap-y-16">
-            {inclusions.map((group) => (
-              <div key={group.group} className="inc-item">
-                <p className="eyebrow text-clay mb-6">{group.group}</p>
-                <ul className="border-t border-ink/12">
-                  {group.items.map((item) => (
-                    <li
-                      key={item}
-                      className="border-b border-ink/12 py-3.5 text-ink-soft text-[15px] md:text-base leading-snug"
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+      {/* The four tables, 2×2 */}
+      <div className="inc-groups max-w-4xl mx-auto mt-16 md:mt-24 grid grid-cols-1 sm:grid-cols-2 gap-x-16 lg:gap-x-24 gap-y-14 md:gap-y-16">
+        {inclusions.map((group) => (
+          <div key={group.group}>
+            <div className="inc-row flex items-baseline justify-center md:justify-start gap-3 mb-5">
+              <h3 className="text-clay font-light text-xl md:text-2xl">{group.group}</h3>
+              <span className="text-clay/40 text-xs tabular-nums">
+                {String(group.items.length).padStart(2, "0")}
+              </span>
+            </div>
+            <ul>
+              {group.items.map((item) => (
+                <li
+                  key={item}
+                  className="inc-row flex items-center justify-center md:justify-between gap-3 border-b border-ink/12 py-3.5"
+                >
+                  <span className="text-ink-soft text-[15px] md:text-base leading-snug text-center md:text-left">
+                    {item}
+                  </span>
+                  <Check />
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
+        ))}
       </div>
     </section>
   );

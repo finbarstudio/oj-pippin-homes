@@ -122,8 +122,8 @@ export default function ProjectShowcase({
 
       {/* Caption + thumbnails */}
       <div ref={layerRef} className="absolute inset-0 pointer-events-none">
-        {/* title, bottom left */}
-        <div className="absolute bottom-8 left-6 md:bottom-12 md:left-10">
+        {/* title, bottom (centre on mobile, left on desktop) */}
+        <div className="absolute bottom-8 left-6 right-6 md:right-auto md:bottom-12 md:left-10 text-center md:text-left">
           <h2 className="ps-line text-cream font-light leading-none" style={{ fontSize: "clamp(2.6rem, 7vw, 5.5rem)" }}>
             {project.title}
           </h2>

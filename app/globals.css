@@ -128,6 +128,11 @@ section { position: relative; }
   to { transform: rotate(360deg); }
 }
 
+@keyframes arrowBob {
+  0%, 100% { transform: translateY(0); opacity: 0.55; }
+  50% { transform: translateY(9px); opacity: 1; }
+}
+
 /* Nav entrance pop — CSS-driven so it never depends on the JS intro */
 @keyframes navpop {
   0%   { opacity: 0; transform: translateY(-7px) scale(0.8); }
@@ -163,7 +168,7 @@ section { position: relative; }
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: var(--umber);
+  background: linear-gradient(to bottom, #1a140e 0%, #14100a 100%);
   color: var(--cream);
   padding-top: calc(3.5rem + 6px);
 }
@@ -186,6 +191,11 @@ section { position: relative; }
 
 .of-col { display: flex; flex-direction: column; align-items: flex-start; }
 .of-col-end { align-items: flex-end; text-align: right; }
+
+@media (max-width: 767px) {
+  .of-info { grid-template-columns: 1fr; gap: 1.4rem; text-align: center; }
+  .of-col, .of-col-end { align-items: center; text-align: center; }
+}
 .of-mask { overflow: hidden; }
 .of-reveal { display: flex; flex-direction: column; align-items: inherit; }
 

@@ -8,32 +8,42 @@ import { process } from "@/lib/content";
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * The build journey, told plainly, five steps from first sketch to keys.
- * A vertical ledger of hairline-ruled rows: big quiet step numbers, a titled
- * column, and the detail running long beside it. Editorial, unhurried.
+ * The five-step build journey. Centred title, steps in a staggered two-column
+ * layout. Each step is ghosted until you scroll to it, then colours in; a dot
+ * floats down the centre line as you go.
  */
 export default function Process() {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(".step-row", {
-        y: 28,
+      gsap.from(".pr-head", {
+        y: 24,
         opacity: 0,
         duration: 0.9,
         ease: "power3.out",
-        stagger: 0.12,
-        scrollTrigger: { trigger: ".step-list", start: "top 72%" },
+        scrollTrigger: { trigger: ref.current, start: "top 75%" },
       });
+
+      gsap.utils.toArray<HTMLElement>(".pr-step").forEach((el) => {
+        gsap.fromTo(
+          el,
+          { opacity: 0.22 },
+          {
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: { trigger: el, start: "top 80%", end: "top 42%", scrub: true },
+          }
+        );
+      });
+
       gsap.fromTo(
-        ".step-rule",
-        { scaleX: 0 },
+        ".pr-dot",
+        { top: "0%" },
         {
-          scaleX: 1,
-          duration: 1.1,
-          ease: "power3.inOut",
-          stagger: 0.12,
-          scrollTrigger: { trigger: ".step-list", start: "top 74%" },
+          top: "100%",
+          ease: "none",
+          scrollTrigger: { trigger: ".pr-track", start: "top 62%", end: "bottom 55%", scrub: true },
         }
       );
     }, ref);
@@ -41,56 +51,37 @@ export default function Process() {
   }, []);
 
   return (
-    <section
-      ref={ref}
-      id="process"
-      className="bg-bone-2 px-6 md:px-16 lg:px-24 py-24 md:py-32"
-    >
-      <p className="eyebrow text-clay mb-5 md:mb-6">How It Works</p>
-
+    <section ref={ref} id="process" className="bg-bone px-6 md:px-16 lg:px-24 py-24 md:py-32">
       <h2
-        className="text-ink font-light leading-[1.02] max-w-4xl mb-14 md:mb-20"
-        style={{ fontSize: "clamp(2.4rem, 5.5vw, 4.5rem)" }}
+        className="pr-head text-ink font-light leading-[1.04] text-center max-w-3xl mx-auto"
+        style={{ fontSize: "clamp(2.6rem, 6vw, 5rem)" }}
       >
         From first sketch to <span className="display-italic">keys.</span>
       </h2>
 
-      <ol className="step-list">
-        {process.map((step) => (
-          <li key={step.num} className="step-row group">
-            <div className="relative border-t border-ink/12 py-9 md:py-12">
-              {/* animated hairline overlay, drawn left-to-right on reveal */}
-              <span className="step-rule absolute -top-px left-0 right-0 h-px bg-ink/25 origin-left" />
+      <div className="pr-track relative max-w-5xl mx-auto mt-16 md:mt-24">
+        {/* Centre line + floating dot (desktop) */}
+        <div className="hidden md:block absolute left-1/2 top-0 -translate-x-1/2 w-px h-full bg-ink/10" />
+        <div
+          className="pr-dot hidden md:block absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-clay"
+          style={{ top: "0%" }}
+        />
 
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:items-baseline md:gap-10">
-                {/* Step number */}
-                <div className="md:col-span-2">
-                  <span
-                    className="block font-light leading-none tabular-nums text-ink/30 transition-colors duration-500 group-hover:text-olive"
-                    style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
-                  >
-                    {step.num}
-                  </span>
-                </div>
-
-                {/* Title */}
-                <div className="md:col-span-4">
-                  <h3 className="text-2xl font-light leading-tight text-ink transition-colors duration-300 group-hover:text-clay">
-                    {step.title}
-                  </h3>
-                </div>
-
-                {/* Description */}
-                <div className="md:col-span-6">
-                  <p className="max-w-xl text-base md:text-lg font-normal leading-relaxed text-ink-soft">
-                    {step.desc}
-                  </p>
-                </div>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 lg:gap-x-24 gap-y-14 md:gap-y-20">
+          {process.map((step, i) => (
+            <div key={step.num} className={`pr-step text-center md:text-left ${i % 2 === 1 ? "md:mt-20" : ""}`}>
+              <span
+                className="display text-clay/40 font-light leading-none"
+                style={{ fontSize: "clamp(2.6rem, 4vw, 4rem)" }}
+              >
+                {step.num}
+              </span>
+              <h3 className="text-ink font-light text-2xl md:text-3xl mt-4">{step.title}</h3>
+              <p className="text-ink-soft text-base leading-relaxed mt-3 max-w-sm mx-auto md:mx-0">{step.desc}</p>
             </div>
-          </li>
-        ))}
-      </ol>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

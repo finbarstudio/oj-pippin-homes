@@ -143,8 +143,8 @@ export default function HeroIntro() {
           />
         </div>
 
-        {/* Headline, bottom (left on mobile, right on desktop) */}
-        <div className="absolute z-10 bottom-10 left-6 right-6 text-left md:bottom-14 md:left-auto md:right-10 md:text-right">
+        {/* Headline, bottom (centre on mobile, right on desktop) */}
+        <div className="absolute z-10 bottom-10 left-6 right-6 text-center md:bottom-14 md:left-auto md:right-10 md:text-right">
           <h1 className="text-cream font-light leading-[1.08]" style={{ fontSize: "clamp(2.3rem, 5.6vw, 5.2rem)" }}>
             <span className="block overflow-hidden">
               <span className="hero-line block">Homes built around</span>
@@ -155,8 +155,8 @@ export default function HeroIntro() {
           </h1>
         </div>
 
-        {/* Heritage: top-left under the nav on mobile, bottom-left on desktop */}
-        <div className="absolute left-6 md:left-10 z-10 max-w-[20rem] top-[5.75rem] md:top-auto md:bottom-14">
+        {/* Heritage: top-centre on mobile, bottom-left on desktop */}
+        <div className="absolute left-6 right-6 md:left-10 md:right-auto z-10 max-w-none md:max-w-[20rem] top-[5.75rem] md:top-auto md:bottom-14 text-center md:text-left">
           <span className="block overflow-hidden mb-3 md:mb-4">
             <span className="hero-meta block text-cream/80 text-[11px] font-semibold tracking-[0.3em] uppercase">
               {heritage.since}

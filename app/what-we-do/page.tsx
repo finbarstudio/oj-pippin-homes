@@ -17,12 +17,18 @@ export default function WhatWeDoPage() {
     <main className="bg-bone text-ink">
       <Nav immediate showLogo />
 
-      <section className="min-h-[68vh] flex flex-col justify-center px-6 md:px-16 lg:px-24 py-24 md:py-32">
-        <p className="eyebrow text-clay mb-6">What We Do</p>
-        <h1 className="text-ink text-4xl md:text-6xl lg:text-7xl font-light leading-[1.05] max-w-4xl">
-          Everything it takes to build a home, and{" "}
-          <span className="display-italic">nothing</span> you didn&rsquo;t ask for.
+      {/* Hero, centred */}
+      <section className="min-h-[72vh] flex flex-col justify-center items-center text-center px-6 md:px-16 lg:px-24 py-24 md:py-32">
+        <h1
+          className="text-ink font-light leading-[1.02] max-w-4xl"
+          style={{ fontSize: "clamp(2.8rem, 7vw, 6rem)" }}
+        >
+          Everything, <span className="display-italic">under one roof.</span>
         </h1>
+        <p className="text-ink-soft text-lg md:text-xl leading-relaxed max-w-2xl mt-8">
+          One team and one contract, from the first sketch to the day you turn
+          the key. Whatever the brief, the block or the budget, we build it.
+        </p>
       </section>
 
       <Services />
